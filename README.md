@@ -43,6 +43,12 @@ These instructions will guide you to set up a local development environment for 
    ```bash
    php artisan migrate
    ```
+3. Seed a the database:
+
+   ```bash
+   php artisan db:seed
+   ```
+
 4. Install JavaScript dependencies using npm:
 
    ```bash
@@ -60,3 +66,14 @@ These instructions will guide you to set up a local development environment for 
    ```bash
    php artisan serve
    ```
+
+   The application should start at this link: http://127.0.0.1:8000/
+
+   If you have seeded the database then you can use this test user credential for testing and development:
+   ```
+   johndoe@example.com
+   password
+   ```
+
+## Contribute in this repository
+Comming sonn ...
