@@ -5,7 +5,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="max-w-full my-4 mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-full mb-4 mx-auto px-2">
         <div
             class="bg-slate-100 border-2 border-slate-200 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"
         >
