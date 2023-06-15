@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class PostSeeder extends Seeder
@@ -12,19 +13,12 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        Post::truncate();
+        $users = User::pluck('id'); // Retrieve all existing user IDs
 
-        $posts = [
-            [
-                'user_id' => 1,
-                'content' => 'This is the content of post 1',
-            ],
-            [
-                'user_id' => 1,
-                'content' => 'This is the content of post 2',
-            ],
-        ];
-
-        Post::insert($posts);
+        foreach (range(1, 100) as $index) {
+            Post::factory()->create([
+                'user_id' => $users->random(), // Assign a random user ID from the existing users
+            ]);
+        }
     }
 }
