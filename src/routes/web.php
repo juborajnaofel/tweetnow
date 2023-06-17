@@ -30,6 +30,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', function () { return Inertia::render('Homefeed');})->name('home');
     Route::get('/home/posts/fetch', [HomeController::class, 'fetchPosts'])->name('home.posts.fetch');
+    Route::get('/home/users/fetch', [HomeController::class, 'fetchUsers'])->name('home.users.fetch');
 });
 
 
