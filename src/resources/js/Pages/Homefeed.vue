@@ -7,11 +7,21 @@ import { Head } from "@inertiajs/vue3";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 const posts = ref([]);
+const users = ref([]);
 
 onMounted(async () => {
     try {
         const response = await axios.get("/home/posts/fetch?limit=10&step=1");
         posts.value = response.data;
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+onMounted(async () => {
+    try {
+        const response = await axios.get("/home/users/fetch?limit=3&step=1");
+        users.value = response.data;
     } catch (error) {
         console.error(error);
     }
@@ -45,17 +55,9 @@ onMounted(async () => {
                             You may know
                         </h1>
                         <UserCard
-                            v-for="(item, index) in [1, 2, 3]"
+                            v-for="(user, index) in users"
                             :key="index"
-                        />
-                    </div>
-                    <div class="mb-3">
-                        <h1 class="mx-3 font-bold text-2xl mb-3">
-                            You may know
-                        </h1>
-                        <UserCard
-                            v-for="(item, index) in [1, 2, 3]"
-                            :key="index"
+                            :name="user.name"
                         />
                     </div>
                 </div>
