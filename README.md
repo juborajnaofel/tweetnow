@@ -8,6 +8,7 @@ TweetNow is a opensource social media created with Vue.js+Inertia SSR and Larave
 
 - login and registration
 - Profile editing
+- Create Post
 - More changes and features on the way.
 
 ## Technologies Used
@@ -55,13 +56,13 @@ These instructions will guide you to set up a local development environment for 
    npm install
    ```
 
-5. In a separate terminal run:
+5. Inside 'tweetnow/src/' In a separate terminal run:
 
    ```bash
    npm run dev
    ```
 
-6. In another terminal run:
+6. Inside 'tweetnow/src/' In another terminal run:
 
    ```bash
    php artisan serve
