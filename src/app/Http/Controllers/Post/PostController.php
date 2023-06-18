@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Post;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -26,8 +28,26 @@ class PostController extends Controller
     public function create()
     {
     }
-    public function store()
+    public function store(Request $request)
     {
+        $request->validate([
+            'content' => ['required', 'string']
+        ]);
+        try {
+            Post::create([
+                'user_id' => Auth::user()->id,
+                'content' => $request->content
+            ]);
+            return redirect()->back()->with([
+                'status' => 'success',
+                'message' => 'successfully created a post'
+            ]);
+        } catch (Exception $e) {
+            return redirect()->back()->with([
+                'status' => 'error',
+                'message' => $e
+            ]);
+        }
     }
     public function edit()
     {
