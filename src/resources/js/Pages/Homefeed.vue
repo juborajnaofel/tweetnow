@@ -11,7 +11,15 @@ const users = ref([]);
 
 onMounted(async () => {
     try {
-        const response = await axios.get("/home/posts/fetch?limit=10&step=1");
+        const response = await axios.get(
+            route("post.fetch", {
+                _query: {
+                    limit: 3,
+                    step: 1,
+                },
+            })
+        );
+
         posts.value = response.data;
     } catch (error) {
         console.error(error);
@@ -20,7 +28,15 @@ onMounted(async () => {
 
 onMounted(async () => {
     try {
-        const response = await axios.get("/home/users/fetch?limit=3&step=1");
+        const response = await axios.get(
+            route("home.users.fetch", {
+                _query: {
+                    limit: 3,
+                    step: 1,
+                },
+            })
+        );
+
         users.value = response.data;
     } catch (error) {
         console.error(error);

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Homefeed\HomeController;
+use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -28,11 +29,16 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::name('home')->prefix('/home')->group(function () {
-        Route::get('/', [HomeController::class, 'homefeed']);
-        Route::get('/posts/fetch', [HomeController::class, 'fetchPosts'])->name('posts.fetch');
+    Route::name('home.')->prefix('/home')->group(function () {
+        Route::get('/', [HomeController::class, 'homefeed'])->name('feed');
         Route::get('/users/fetch', [HomeController::class, 'fetchUsers'])->name('users.fetch');
     });
+    Route::name('post.')->prefix('/post')->group(function () {
+        Route::resource('/', PostController::class);
+        Route::get('/fetch', [PostController::class, 'fetchPosts'])->name('fetch');
+    });
+
+
 });
 
 
@@ -42,7 +48,6 @@ Route::middleware('auth')->group(function () {
         Route::patch('/', [ProfileController::class, 'update'])->name('update');
         Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
     });
-
 });
 
 
