@@ -67,9 +67,9 @@ onMounted(async () => {
             <div class="flex flex-col lg:flex-row w-full px-5 justify-center">
                 <div class="w-full lg:w-1/6">
                     <div class="mb-3">
-                        <h1 class="mx-3 font-bold text-2xl mb-3">
+                        <div class="mx-2 font-bold text-md mb-1">
                             You may know
-                        </h1>
+                        </div>
                         <UserCard
                             v-for="(user, index) in users"
                             :key="index"
