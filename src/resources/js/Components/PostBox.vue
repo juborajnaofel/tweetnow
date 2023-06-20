@@ -1,12 +1,29 @@
 <script setup>
 import { useForm, usePage } from "@inertiajs/vue3";
+import { ref } from "vue";
 
 const form = useForm({
     content: "",
 });
 
+const allowedLength = ref(200);
+
+const isContentCharNumberNotAllowed = () => {
+    return allowedLength.value < form.content.length;
+};
+
 const submitPost = (event) => {
     event.preventDefault();
+
+    if (isContentCharNumberNotAllowed()) {
+        alert(
+            "Only " +
+                allowedLength.value +
+                " characters are allowed for your post!"
+        );
+        return;
+    }
+
     form.post(route("post.store"), {
         onFinish() {
             form.content = "";
@@ -28,17 +45,33 @@ const submitPost = (event) => {
             <div class="p-1 text-gray-900 dark:text-gray-100">
                 <form class="w-full">
                     <textarea
-                        @change=""
                         name="posthere"
                         placeholder="What are you thinking?"
                         v-model="form.content"
-                        rows="5"
-                        class="w-full rounded-md border-2 border-slate-100"
+                        rows="2"
+                        class="w-full text-sm rounded-md border-2 border-slate-100"
                     ></textarea>
-                    <div class="flex flex-row justify-end">
+                    <div class="flex flex-row justify-between">
+                        <div>
+                            <span
+                                class="font-bold text-[10px]"
+                                :class="
+                                    isContentCharNumberNotAllowed()
+                                        ? 'text-red-400'
+                                        : ''
+                                "
+                            >
+                                <template v-if="form.content.length > 0">
+                                    {{ form.content.length }}/
+                                    {{
+                                        allowedLength
+                                    }}
+                                </template>
+                            </span>
+                        </div>
                         <button
                             @click="submitPost"
-                            class="py-3 px-6 rounded-md bg-slate-300 text-slate-600 font-bold"
+                            class="py-1 px-4 text-sm rounded-md bg-slate-300 text-slate-600 font-bold"
                         >
                             Post
                         </button>
