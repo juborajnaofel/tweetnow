@@ -45,6 +45,12 @@ class HandleInertiaRequests extends Middleware
                     'message' => $request->session()->get('message'),
                 ];
             },
+            'configs' => function () use ($request) {
+                return [
+                    'post_character_limit' => config('post.limit.character'),
+                    'logo' => asset('images/TweetNowLogo.png')
+                ];
+            },
         ]);
     }
 }
