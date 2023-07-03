@@ -50,19 +50,6 @@ defineProps({
             </template>
         </div>
 
-        <div class="max-w-7xl mx-auto p-6 lg:p-8">
-            <div class="flex justify-center">
-                <ApplicationLogo/>
-            </div>
-
-            <div class="flex justify-center mt-16 px-6 sm:items-center sm:justify-between">
-                <div class="text-center text-sm text-gray-500 dark:text-gray-400 sm:text-left">
-                    <div class="flex items-center gap-4">
-                        This is a a social media created with Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
