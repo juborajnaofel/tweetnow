@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+    private function checkPostOwner($user_id)
+    {
+        return $user_id == Auth::user()->id;
+    }
+
     public function fetchPosts(Request $request)
     {
         $limit = $request->get('limit');
@@ -18,15 +23,13 @@ class PostController extends Controller
         $limit = is_numeric($limit) ? $limit : 10;
         $step = is_numeric($step) ? $step : 0;
 
-        return Post::with('user')
+        $posts =  Post::with('user')
             ->latest()
             ->offset($step)
             ->limit($limit)
             ->get();
-    }
 
-    public function create()
-    {
+        return $posts;
     }
     public function store(Request $request)
     {
@@ -58,7 +61,26 @@ class PostController extends Controller
     public function show()
     {
     }
-    public function destroy()
+    public function destroy(Post $post)
     {
+        try {
+            if(!$this->checkPostOwner($post->user_id)){
+                return redirect()->back()->with([
+                    'status' => 'error',
+                    'message' => 'Unathorized action'
+                ]);
+            }
+
+            $post->delete();
+            return redirect()->back()->with([
+                'status' => 'success',
+                'message' => 'successfully deleted a post'
+            ]);
+        } catch (Exception $e) {
+            return redirect()->back()->with([
+                'status' => 'error',
+                'message' => $e
+            ]);
+        }
     }
 }
