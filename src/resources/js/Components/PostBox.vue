@@ -6,7 +6,7 @@ const form = useForm({
     content: "",
 });
 
-const allowedLength = ref(200);
+const allowedLength = ref(usePage().props.configs.post_character_limit);
 
 const isContentCharNumberNotAllowed = () => {
     return allowedLength.value < form.content.length;
@@ -49,7 +49,7 @@ const submitPost = (event) => {
                         placeholder="What are you thinking?"
                         v-model="form.content"
                         rows="2"
-                        class="w-full text-sm rounded-md border-2 border-slate-100"
+                        class="w-full text-sm rounded-md border-none bg-slate-200 focus:outline-none"
                     ></textarea>
                     <div class="flex flex-row justify-between">
                         <div>
