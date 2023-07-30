@@ -1,5 +1,6 @@
 <script setup>
 import TNowButton from "@/Components/TNButton.vue";
+import { usePage } from "@inertiajs/vue3";
 import moment from "moment";
 import { ref } from "vue";
 
@@ -9,30 +10,39 @@ const formattedDate = (datatime) => {
     return moment(datatime).format("MMMM Do YYYY, h:mm:ss a");
 };
 
+const auth_id = usePage().props.auth.user.id;
+
 const randomInt = (limit) => {
     return Math.floor(Math.random() * limit) + 1;
 };
 
 const props = defineProps({
     data: Object,
+    auth: Object,
 });
+
 </script>
 
 <template>
-    <div class="max-w-full mb-2 mx-auto mx-2">
+    <div class="max-w-full mb-2 mx-auto mx-[10px]">
         <div class="relative">
             <ul
                 class="absolute right-0 top-4 mt-2 w-20 bg-white rounded-md shadow-lg"
                 :class="menuShow ? '' : 'hidden'"
             >
-                <li>
+                <li v-if="auth_id == data.user_id">
                     <a href="#" class="block px-4 py-1 text-xs text-gray-800">
                         Delete
                     </a>
                 </li>
-                <li>
+                <li v-if="auth_id == data.user_id">
                     <a href="#" class="block px-4 py-1 text-xs text-gray-800">
                         Edit
+                    </a>
+                </li>
+                <li v-if="true">
+                    <a href="#" class="block px-4 py-1 text-xs text-gray-800">
+                        Report
                     </a>
                 </li>
             </ul>
@@ -60,7 +70,7 @@ const props = defineProps({
 
                 <!-- <span class="text-xs p-2" v-if="data.user.name">✔</span> -->
                 <p class="pt-2 pb-3 px-3 text-sm">
-                    {{ data.content }} {{ data.post_permission }}
+                    {{ data.content }}
                 </p>
                 <hr />
                 <div class="flex flex-row flex-wrap gap-3 p-1">
