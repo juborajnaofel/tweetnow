@@ -6,6 +6,14 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import { ref, onMounted } from "vue";
 import axios from "axios";
+
+const props = defineProps({
+    user: Object
+});
+
+console.log(props);
+
+
 const posts = ref([]);
 const users = ref([]);
 
