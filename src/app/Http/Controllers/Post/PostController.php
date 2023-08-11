@@ -19,7 +19,7 @@ class PostController extends Controller
     {
         $limit = $request->get('limit');
         $step = $request->get('step');
-        $id = $request->get('id', false);
+        $id = $request->get('id', null);
 
         $limit = is_numeric($limit) ? $limit : 10;
         $step = is_numeric($step) ? $step : 0;
