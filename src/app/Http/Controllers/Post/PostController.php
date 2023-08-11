@@ -17,11 +17,8 @@ class PostController extends Controller
 
     public function fetchPosts(Request $request)
     {
-        $limit = $request->get('limit');
-        $step = $request->get('step');
-
-        $limit = is_numeric($limit) ? $limit : 10;
-        $step = is_numeric($step) ? $step : 0;
+        $limit = is_numeric($request->limit) ? $request->limit: 10;
+        $step = is_numeric($request->step) ? $request->step : 0;
 
         $posts =  Post::with('user')
             ->latest()
