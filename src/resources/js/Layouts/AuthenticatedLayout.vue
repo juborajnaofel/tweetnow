@@ -5,7 +5,7 @@ import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -40,8 +40,8 @@ const showingNavigationDropdown = ref(false);
                                     Home
                                 </NavLink>
                                 <NavLink
-                                    :href="route('profile.view')"
-                                    :active="route().current('profile.view')"
+                                    :href="route('profile.view', usePage().props.auth.user.id)"
+                                    :active="route().current('profile.view', usePage().props.auth.user.id)"
                                 >
                                     Profile
                                 </NavLink>
