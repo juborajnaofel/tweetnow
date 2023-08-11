@@ -36,9 +36,9 @@ These instructions will guide you to set up a local development environment for 
    ```
 3. Copy the '.env.example' file and make the required configuration changes in the '.env' file
 
-```bash
+   ```bash
     cp .env.example .env
-```
+   ```
 4. Generate an application key:
 
     ```bash
