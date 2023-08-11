@@ -1,11 +1,11 @@
 <script setup>
 import PostBox from "@/Components/PostBox.vue";
 import PostCard from "@/Components/PostCard.vue";
-import UserCard from "@/Components/UserCard.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import SideCard from "@/Components/SideCard.vue";
 
 const props = defineProps({
     user: Object
@@ -21,7 +21,7 @@ onMounted(async () => {
         const response = await axios.get(
             route("post.fetch", {
                 _query: {
-                    limit: 3,
+                    limit: 20,
                     step: 1,
                     id: props.user.id
                 },
@@ -34,22 +34,6 @@ onMounted(async () => {
     }
 });
 
-onMounted(async () => {
-    try {
-        const response = await axios.get(
-            route("home.users.fetch", {
-                _query: {
-                    limit: 3,
-                    step: 1,
-                },
-            })
-        );
-
-        users.value = response.data;
-    } catch (error) {
-        console.error(error);
-    }
-});
 </script>
 
 <template>
@@ -57,11 +41,12 @@ onMounted(async () => {
 
     <AuthenticatedLayout>
         <template #header>
-            <h2
-                class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"
+            <div
+                class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight flex flex-row justify-between"
             >
-                {{ user.name }}
-            </h2>
+                <span class="">{{ user.name }}</span>
+                <span class="text-md"> Following: 100, Followers:200</span>
+            </div>
         </template>
 
         <div
@@ -76,13 +61,47 @@ onMounted(async () => {
                 <div class="w-full lg:w-1/6">
                     <div class="mb-3">
                         <div class="mx-2 font-bold text-md mb-1">
-                            You may know
+                            About
                         </div>
-                        <UserCard
-                            v-for="(user, index) in users"
-                            :key="index"
-                            :name="user.name"
-                        />
+                        <SideCard >
+                            <div class="flex flex-row flex-start gap-x-6 font-bold text-sm justify-center">
+                                <span>
+                                Followers: 0   
+                                </span>
+                                <span>
+                                    Following: 0
+                                </span> 
+                            </div>
+                            <hr>
+                            <div class="flex flex-col flex-start gap-x-6 font-bold text-sm justify-center">
+                                <span>
+                                Bio 
+                                </span>
+                                <span class="font-thin">
+                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias, dolorem doloremque error voluptate quod velit dolores, a, cupiditate tenetur quae incidunt delectus eligendi saepe libero dignissimos corporis veritatis iste nihil!
+                                </span> 
+                            </div>
+                            <hr>
+                            <div class="flex flex-col flex-start gap-x-6 font-bold text-sm justify-center">
+                                <span>
+                                Links
+                                </span>
+                                
+                                    <span 
+                                        class="font-thin bg-slate-100 border-1 border-slate-300"
+                                        v-for="item in [
+                                            {link:'/',user_name: 'tiger_l123', type:'fb'},
+                                            {link:'/',user_name: 'tiger_l123', type:'in'},
+                                            {link:'/',user_name: 'tiger_l123', type:'github'},
+                                        ]"
+                                    >
+                                        <a :href="link">
+                                            {{ item.type+"//: "+item.user_name }}
+                                        </a>                                        
+                                    </span>
+
+                            </div>        
+                        </SideCard>
                     </div>
                 </div>
                 <div class="w-full lg:w-3/6">

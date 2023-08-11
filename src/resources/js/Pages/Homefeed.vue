@@ -7,11 +7,6 @@ import { Head } from "@inertiajs/vue3";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-const props = defineProps({
-    user: Object
-});
-
-console.log(props);
 
 
 const posts = ref([]);
@@ -22,7 +17,7 @@ onMounted(async () => {
         const response = await axios.get(
             route("post.fetch", {
                 _query: {
-                    limit: 3,
+                    limit: 100,
                     step: 1,
                 },
             })
@@ -39,7 +34,7 @@ onMounted(async () => {
         const response = await axios.get(
             route("home.users.fetch", {
                 _query: {
-                    limit: 3,
+                    limit: 10,
                     step: 1,
                 },
             })
@@ -82,6 +77,7 @@ onMounted(async () => {
                             v-for="(user, index) in users"
                             :key="index"
                             :name="user.name"
+                            :id="user.id"
                         />
                     </div>
                 </div>
