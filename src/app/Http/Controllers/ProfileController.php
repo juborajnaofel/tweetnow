@@ -60,4 +60,9 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function show(){
+        $user = Auth::user();
+        return Inertia::render('Profile/View', compact('user'));
+    }
 }
