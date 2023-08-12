@@ -2,10 +2,11 @@
 import PostBox from "@/Components/PostBox.vue";
 import PostCard from "@/Components/PostCard.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, usePage } from "@inertiajs/vue3";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import SideCard from "@/Components/SideCard.vue";
+import UserFollowButton from "@/Components/UserFollowButton.vue";
 
 const props = defineProps({
     user: Object
@@ -15,6 +16,8 @@ const props = defineProps({
 
 const posts = ref([]);
 const users = ref([]);
+const authUser = ref(usePage().props.auth.user)
+const followersCount = ref(props.user.followers_count);
 
 onMounted(async () => {
     try {
@@ -45,6 +48,13 @@ onMounted(async () => {
                 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight flex flex-row justify-between"
             >
                 <span class="">{{ user.name }}</span>
+                <UserFollowButton
+                    v-if="user.id !== authUser.id"
+                    @unfollow-event="followersCount = followersCount - 1"
+                    @follow-event="followersCount = followersCount + 1"
+                    :isFollowed="user.followers.find(follower=> follower.id == authUser.id)"
+                    :followedId="user.id"
+                />
             </div>
         </template>
 
@@ -65,7 +75,7 @@ onMounted(async () => {
                         <SideCard >
                             <div class="flex flex-row flex-start gap-x-6 font-bold text-sm justify-center">
                                 <span>
-                                Followers: {{ user.followers_count}}  
+                                Followers: {{ followersCount }}  
                                 </span>
                                 <span>
                                     Following: {{ user.following_count}} 
