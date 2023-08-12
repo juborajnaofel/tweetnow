@@ -1,5 +1,6 @@
 <script setup>
 import TNowButton from "@/Components/TNButton.vue";
+import { Link } from "@inertiajs/vue3";
 import moment from "moment";
 const formattedDate = (datatime) => {
     return moment(datatime).format("MMMM Do YYYY, h:mm:ss a");
@@ -11,6 +12,7 @@ const randomInt = (limit) => {
 
 const props = defineProps({
     name: String,
+    id: Number
 });
 </script>
 
@@ -20,7 +22,10 @@ const props = defineProps({
             class="bg-slate-100 border-2 border-slate-200 dark:bg-gray-800 overflow-hidden shadow-sm rounded-2xl"
         >
             <div class="py-1 text-gray-900 dark:text-gray-100">
-                <div class="font-bold text-sm px-2">{{ name }}</div>
+                
+                <Link :href="route('profile.view', id)">
+                    <div class="font-bold text-sm px-2">{{ name }}</div>
+                </Link>
                 <hr>
                 <div class="flex flex-row flex-wrap gap-1 px-1 mt-1">
                     <TNowButton>Follow</TNowButton>

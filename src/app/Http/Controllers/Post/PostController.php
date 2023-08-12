@@ -19,8 +19,12 @@ class PostController extends Controller
     {
         $limit = is_numeric($request->limit) ? $request->limit : 10;
         $step = is_numeric($request->step) ? $request->step : 0;
+        $id = $request->get('id', null);
 
         $posts =  Post::with('user')
+            ->when(isset($id), function ($query) use($id){
+                $query->where('posts.user_id', $id);
+            })
             ->latest()
             ->offset($step)
             ->limit($limit)

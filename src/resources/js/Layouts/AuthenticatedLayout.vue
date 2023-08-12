@@ -5,7 +5,7 @@ import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -38,6 +38,12 @@ const showingNavigationDropdown = ref(false);
                                     :active="route().current('home.feed')"
                                 >
                                     Home
+                                </NavLink>
+                                <NavLink
+                                    :href="route('profile.view', usePage().props.auth.user.id)"
+                                    :active="route().current('profile.view', usePage().props.auth.user.id)"
+                                >
+                                    Profile
                                 </NavLink>
                             </div>
                         </div>
@@ -74,7 +80,7 @@ const showingNavigationDropdown = ref(false);
                                         <DropdownLink
                                             :href="route('profile.edit')"
                                         >
-                                            Profile
+                                            Profile Settings
                                         </DropdownLink>
                                         <DropdownLink
                                             :href="route('logout')"
@@ -165,7 +171,7 @@ const showingNavigationDropdown = ref(false);
 
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.edit')">
-                                Profile
+                                Profile Settings
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 :href="route('logout')"
