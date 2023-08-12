@@ -22,7 +22,7 @@ class HomeController extends Controller
         $limit = is_numeric($limit) ? $limit : 10;
         $step = is_numeric($step) ? $step : 0;
 
-        return User::latest()
+        return User::with('followers')->latest()
             ->offset($step)
             ->limit($limit)
             ->get();

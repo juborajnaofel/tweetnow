@@ -1,7 +1,9 @@
 <script setup>
 import TNowButton from "@/Components/TNButton.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 import moment from "moment";
+import UserFollowButton from "./UserFollowButton.vue";
+import { ref } from "vue";
 const formattedDate = (datatime) => {
     return moment(datatime).format("MMMM Do YYYY, h:mm:ss a");
 };
@@ -12,8 +14,12 @@ const randomInt = (limit) => {
 
 const props = defineProps({
     name: String,
-    id: Number
+    id: Number,
+    followers: Object
 });
+
+const authUser = ref(usePage().props.auth.user)
+
 </script>
 
 <template>
@@ -27,10 +33,14 @@ const props = defineProps({
                     <div class="font-bold text-sm px-2">{{ name }}</div>
                 </Link>
                 <hr>
+                {{  }}
                 <div class="flex flex-row flex-wrap gap-1 px-1 mt-1">
-                    <TNowButton>Follow</TNowButton>
+                     <UserFollowButton
+                      :isFollowed="followers.find(follower=> follower.id == authUser.id)"
+                      :followedId="id"
+                     />
                     <div class="text-xs py-1">
-                        Followed by {{ randomInt(100000) }}
+                        Followed by {{ followers.length }}
                     </div>
                 </div>
             </div>

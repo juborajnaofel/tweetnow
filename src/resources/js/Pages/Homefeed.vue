@@ -78,6 +78,7 @@ onMounted(async () => {
                             :key="index"
                             :name="user.name"
                             :id="user.id"
+                            :followers="user?.followers"
                         />
                     </div>
                 </div>

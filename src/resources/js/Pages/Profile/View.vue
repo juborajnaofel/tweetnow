@@ -45,7 +45,6 @@ onMounted(async () => {
                 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight flex flex-row justify-between"
             >
                 <span class="">{{ user.name }}</span>
-                <span class="text-md"> Following: 100, Followers:200</span>
             </div>
         </template>
 
@@ -66,10 +65,10 @@ onMounted(async () => {
                         <SideCard >
                             <div class="flex flex-row flex-start gap-x-6 font-bold text-sm justify-center">
                                 <span>
-                                Followers: 0   
+                                Followers: {{ user.followers_count}}  
                                 </span>
                                 <span>
-                                    Following: 0
+                                    Following: {{ user.following_count}} 
                                 </span> 
                             </div>
                             <hr>

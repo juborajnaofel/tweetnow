@@ -64,6 +64,13 @@ class ProfileController extends Controller
 
     public function show($id){
         $user = User::find($id);
+        $user->load([
+            'followers',
+            'follows'
+        ]);
+        $user['followers_count'] =  $user->followers->count();
+        $user['following_count'] =  $user->follows->count();
+
         return Inertia::render('Profile/View', compact('user'));
     }
 }
