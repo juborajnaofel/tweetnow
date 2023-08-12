@@ -34,35 +34,40 @@ These instructions will guide you to set up a local development environment for 
    ```bash
    composer install
    ```
-3. Generate an application key:
+3. Copy the '.env.example' file and make the required configuration changes in the '.env' file
+
+   ```bash
+    cp .env.example .env
+   ```
+4. Generate an application key:
 
     ```bash
     php artisan key:generate
     ```
-3. Give database credentials to '.env' file and Migrate tables to database by running the below command:
+5. Give database credentials to '.env' file and Migrate tables to database by running the below command:
 
    ```bash
    php artisan migrate
    ```
-3. Seed a the database:
+6. Seed a the database:
 
    ```bash
    php artisan db:seed
    ```
 
-4. Install JavaScript dependencies using npm:
+7. Install JavaScript dependencies using npm:
 
    ```bash
    npm install
    ```
 
-5. Inside 'tweetnow/src/' In a separate terminal run:
+8. Inside 'tweetnow/src/' In a separate terminal run:
 
    ```bash
    npm run dev
    ```
 
-6. Inside 'tweetnow/src/' In another terminal run:
+9. Inside 'tweetnow/src/' In another terminal run:
 
    ```bash
    php artisan serve
