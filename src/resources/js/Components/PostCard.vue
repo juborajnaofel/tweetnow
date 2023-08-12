@@ -1,6 +1,6 @@
 <script setup>
 import TNowButton from "@/Components/TNButton.vue";
-import { usePage } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 import moment from "moment";
 import { ref } from "vue";
 
@@ -24,7 +24,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div class="max-w-full mb-2 mx-auto mx-[10px]">
+    <div class="max-w-full mb-2 mx-auto">
         <div class="relative">
             <ul
                 class="absolute right-0 top-4 mt-2 w-20 bg-white rounded-md shadow-lg"
@@ -49,12 +49,14 @@ const props = defineProps({
         </div>
 
         <div
-            class="bg-slate-100 border-2 border-slate-200 dark:bg-gray-800 overflow-hidden shadow-sm rounded-2xl"
+            class="mx-2 bg-slate-100 border-2 border-slate-200 dark:bg-gray-800 overflow-hidden shadow-sm rounded-2xl"
         >
             <div class="text-gray-900 dark:text-gray-100">
                 <div class="flex flex-row justify-between px-1">
                     <div class="flex flex-col p-2">
-                        <span class="font-bold">{{ data.user.name }}</span>
+                        <Link :href="route('profile.view', data.user.id)">
+                            <span class="font-bold">{{ data.user.name }}</span>
+                        </Link>
                         <span class="text-xs">
                             {{ formattedDate(data.created_at) }}
                         </span>
