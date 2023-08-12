@@ -7,8 +7,9 @@ TweetNow is a opensource social media created with Vue.js+Inertia SSR and Larave
 ## Features
 
 - login and registration
-- Profile editing
+- Profile view, editing
 - Create Post
+- Follow/Unfollow users
 - More changes and features on the way.
 
 ## Technologies Used
