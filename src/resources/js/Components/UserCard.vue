@@ -4,19 +4,15 @@ import { Link, usePage } from "@inertiajs/vue3";
 import moment from "moment";
 import UserFollowButton from "./UserFollowButton.vue";
 import { ref } from "vue";
-const formattedDate = (datatime) => {
-    return moment(datatime).format("MMMM Do YYYY, h:mm:ss a");
-};
 
-const randomInt = (limit) => {
-    return Math.floor(Math.random() * limit) + 1;
-};
+
 
 const props = defineProps({
     name: String,
     id: Number,
     followers: Object
 });
+const followersCount = ref(props.followers?.length);
 
 const authUser = ref(usePage().props.auth.user)
 
@@ -36,11 +32,13 @@ const authUser = ref(usePage().props.auth.user)
                 {{  }}
                 <div class="flex flex-row flex-wrap gap-1 px-1 mt-1">
                      <UserFollowButton
+                       @unfollow-event="followersCount = followersCount - 1"
+                       @follow-event="followersCount = followersCount + 1"
                       :isFollowed="followers.find(follower=> follower.id == authUser.id)"
                       :followedId="id"
                      />
                     <div class="text-xs py-1">
-                        Followed by {{ followers.length }}
+                        Followed by {{ followersCount }}
                     </div>
                 </div>
             </div>
