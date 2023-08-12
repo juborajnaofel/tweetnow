@@ -3,6 +3,7 @@
 use App\Http\Controllers\Homefeed\HomeController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\FollowController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -42,6 +43,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('/', PostController::class);
         Route::get('/fetch', [PostController::class, 'fetchPosts'])->name('fetch');
     });
+    Route::name('user.')->prefix('/user')->group(function () {
+        Route::post('/follow/{followed_id}', [FollowController::class, 'follow'])->name('follow.user');;
+        Route::post('/unfollow/{unfollowed_id}', [FollowController::class, 'unfollow'])->name('unfollow.user');
+    });
+
+
+
 });
 
 
