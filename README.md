@@ -3,10 +3,18 @@
 TweetNow is a opensource social media created with Vue.js+Inertia SSR and Laravel. It is a social media platform that allows users to post short messages, follow other users, and engage in conversations through comments and likes.
 
 <img src="TweetNow.png" />
+ The dashboard provides users with a comprehensive overview of their social media activity. It includes metrics such as follower count, engagement statistics, trending topics, and personalized recommendations based on user behavior.
 <img src="dashboard.JPG" />
+The profile page is where users manage their personal information, including bio, profile picture, and privacy settings. It also displays a timeline of their posts, comments, and interactions with other users.
 <img src="profile.JPG" />
+In the settings section, users can customize their experience by adjusting notification preferences, privacy settings, language preferences, and other account-related configurations to personalize their usage.
+<img src="settings.JPG" />
+The login screen ensures secure access to the platform, requiring users to enter their credentials (username/email and password) to authenticate their identity and gain entry to their account.
 <img src="login.JPG" />
+New users can sign up for the platform through the registration screen by providing essential details such as username, email address, and creating a password. It initiates the account creation process for accessing all platform features.
 <img src="register.JPG" />
+The "forgot password" feature allows users who have forgotten their login credentials to regain access to their account. It typically involves a process to reset the password via email verification or answering security questions for verification.
+<img src="forgot.JPG" />
 
 ## Features
 
