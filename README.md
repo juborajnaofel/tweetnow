@@ -3,6 +3,10 @@
 TweetNow is a opensource social media created with Vue.js+Inertia SSR and Laravel. It is a social media platform that allows users to post short messages, follow other users, and engage in conversations through comments and likes.
 
 <img src="TweetNow.png" />
+<img src="dashboard.JPG" />
+<img src="profile.JPG" />
+<img src="login.JPG" />
+<img src="register.JPG" />
 
 ## Features
 
