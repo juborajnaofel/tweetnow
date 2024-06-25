@@ -1,8 +1,40 @@
 # TweetNow
 
-TweetNow is a opensource social media created with Vue.js+Inertia SSR and Laravel. It is a social media platform that allows users to post short messages, follow other users, and engage in conversations through comments and likes.
+<p>
+    <img src="TweetNow.png" />
+    TweetNow is an open-source social media platform created with Vue.js + Inertia SSR and Laravel. It allows users to post short messages, follow other users, and engage in conversations through comments and likes.
+</p>
 
-<img src="TweetNow.png" />
+<p>
+    <img src="dashboard.JPG" />
+    The dashboard provides users with a comprehensive overview of their social media activity. It includes metrics such as follower count, engagement statistics, trending topics, and personalized recommendations based on user behavior.
+</p>
+
+<p>
+    <img src="profile.JPG" />
+    The profile page is where users manage their personal information, including bio, profile picture, and privacy settings. It also displays a timeline of their posts, comments, and interactions with other users.
+</p>
+
+<p>
+    <img src="settings.JPG" />
+    In the settings section, users can customize their experience by adjusting notification preferences, privacy settings, language preferences, and other account-related configurations to personalize their usage.
+</p>
+
+<p>
+    <img src="login.JPG" />
+    The login screen ensures secure access to the platform, requiring users to enter their credentials (username/email and password) to authenticate their identity and gain entry to their account.
+</p>
+
+<p>
+    <img src="register.JPG" />
+    New users can sign up for the platform through the registration screen by providing essential details such as username, email address, and creating a password. It initiates the account creation process for accessing all platform features.
+</p>
+
+<p>
+    <img src="forgot.JPG" />
+    The "forgot password" feature allows users who have forgotten their login credentials to regain access to their account. It typically involves a process to reset the password via email verification or answering security questions for verification.
+</p>
+
 
 ## Features
 
