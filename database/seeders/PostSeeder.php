@@ -15,7 +15,7 @@ class PostSeeder extends Seeder
     {
         $users = User::pluck('id'); // Retrieve all existing user IDs
 
-        foreach (range(1, 100) as $index) {
+        foreach (range(1, 10) as $index) {
             Post::factory()->create([
                 'user_id' => $users->random(), // Assign a random user ID from the existing users
             ]);
