@@ -48,7 +48,8 @@ class HandleInertiaRequests extends Middleware
             'configs' => function () use ($request) {
                 return [
                     'post_character_limit' => config('post.limit.character'),
-                    'logo' => asset('images/TweetNowLogo.png')
+                    'logo' => asset('images/TweetNowLogo.png'),
+                    'user_fallback_image' => asset('images/person.png')
                 ];
             },
         ]);
