@@ -26,12 +26,12 @@ const showingNavigationDropdown = ref(false);
               </div>
 
               <div class="hidden sm:-my-px sm:ml-10 sm:flex space-x-8">
-                <Link :href="route('home.feed')" :class="route().current('home.feed') ? 'text-white bg-slate-700' : 'text-slate-200'">
+                <Link :href="route('home.feed')" :class="route().current('home.feed') ? 'text-white bg-slate-700 p-2' : 'text-slate-200 p-2'">
                   Home
                 </Link>
                 <Link
                   :href="route('profile.view', usePage().props.auth.user.id)"
-                  :class="route().current('profile.view', usePage().props.auth.user.id) ? 'text-white bg-slate-700' : 'text-slate-200'"
+                  :class="route().current('profile.view', usePage().props.auth.user.id) ? 'text-white bg-slate-700 p-2' : 'text-slate-200 p-2'"
                 >
                   Profile
                 </Link>
@@ -125,7 +125,7 @@ const showingNavigationDropdown = ref(false);
       </nav>
 
 
-      <header class="bg-gray-900 dark:bg-gray-800 shadow" v-if="$slots.header">
+      <header class="bg-gray-900 dark:bg-gray-800 shadow z-20" v-if="$slots.header">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           <slot name="header" />
         </div>
