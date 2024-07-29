@@ -40,11 +40,14 @@ class PostController extends Controller
         try {
             Post::create([
                 'user_id' => Auth::user()->id,
-                'content' => $request->content
+                'content' => $request->content,
+                'background_color' => $request->content,
+                'text_color' => $request->content,
+                'type' => $request->type
             ]);
             return redirect()->back()->with([
                 'status' => 'success',
-                'message' => 'successfully created a post'
+                'message' => 'successfully created a '.$request->type
             ]);
         } catch (Exception $e) {
             return redirect()->back()->with([
