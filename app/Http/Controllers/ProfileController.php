@@ -41,6 +41,17 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit');
     }
 
+
+    public function updateSocialLinks(Request $request)
+    {
+        $user = $request->user();
+        $user->social_links = $request->input('socialLinks');
+        $user->save();
+
+        return Redirect::route('profile.edit');
+    }
+
+
     /**
      * Delete the user's account.
      */

@@ -3,7 +3,9 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build && vite build --ssr"
+        "build": "vite build && vite build --ssr",
+		"buildOnLowMem":"NODE_OPTIONS=--max_old_space_size=4096 vite build && vite build --ssr"
+
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",

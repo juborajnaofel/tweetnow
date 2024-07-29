@@ -16,6 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->text('content');
+            $table->enum('type',['story','post'])->default('post');
+            $table->string('background_color')->nullable();
+            $table->string('text_color')->nullable();
+            $table->string('font')->nullable();
             $table->timestamps();
         });
     }
