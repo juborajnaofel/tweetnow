@@ -25,6 +25,9 @@ class PostController extends Controller
             ->when(isset($id), function ($query) use($id){
                 $query->where('posts.user_id', $id);
             })
+            ->when(isset($request->type), function ($query) use ($request){
+                $query->where('posts.type', $request->type);
+            })
             ->latest()
             ->offset($step)
             ->limit($limit)
@@ -41,10 +44,14 @@ class PostController extends Controller
             Post::create([
                 'user_id' => Auth::user()->id,
                 'content' => $request->content,
-                'background_color' => $request->content,
-                'text_color' => $request->content,
+                'background_color' => $request->background_color,
+                'text_color' => $request->text_color,
                 'type' => $request->type
             ]);
+
+
+
+
             return redirect()->back()->with([
                 'status' => 'success',
                 'message' => 'successfully created a '.$request->type

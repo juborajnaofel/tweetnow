@@ -33,7 +33,7 @@
                             </div>
                         </div>
                     </template>
-                    <template v-if="menuOpen === 'profile'">
+                    <template v-else-if="menuOpen === 'profile'">
                         <div class="p-3 py-3">
                             <Link
                                 class="bg-slate-600 text-white rounded-md p-2"
@@ -44,6 +44,22 @@
                                     )
                                 "
                                 >{{ usePage().props.auth.user.name }}</Link
+                            >
+                        </div>
+                    </template>
+                    <template v-else-if="menuOpen === 'explore'">
+                        <Search />
+                    </template>
+                    <template v-else-if="menuOpen === 'activity'">
+                        <div class="p-3 py-3 text-white">
+                            Activity Log
+                        </div>
+
+                        <div class="p-3 py-3" v-for="option in ['post','Like & Comments','Follow']">
+                            <Link
+                                class="bg-slate-600 text-white rounded-md p-2 w-full"
+                                :href="'#'"
+                                >{{ option }}</Link
                             >
                         </div>
                     </template>
@@ -61,14 +77,16 @@
 <script setup>
 import { ref } from 'vue';
 import PostBox from './PostBox.vue';
+import Search from './Search.vue';
 import { useForm, usePage, Link } from '@inertiajs/vue3';
 
 const menuOpen = ref(null);
 
 const menuItems = [
     { key: 'profile', label: 'Profile', icon: '👤' },
-    { key: 'activity', label: 'Log', icon: '📊' },
     { key: 'create', label: 'Create', icon: '🖊️' },
+    { key: 'activity', label: 'Log', icon: '📊' },
+    { key: 'bots', label: 'Bots', icon: '🤖' },
     { key: 'groups', label: 'Groups', icon: '🤝' },
     { key: 'explore', label: 'Search', icon: '🔍' },
 ];

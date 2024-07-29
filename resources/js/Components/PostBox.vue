@@ -7,7 +7,7 @@ const form = useForm({
     content: '',
     background_color: '#ffffff',
     text_color: '#000000',
-    type: 'post'
+    type: 'post',
 });
 const selectedTab = ref('tab1');
 const allowedLength = ref(usePage().props.configs.post_character_limit);
@@ -15,7 +15,6 @@ const allowedLength = ref(usePage().props.configs.post_character_limit);
 const isContentCharNumberNotAllowed = () => {
     return allowedLength.value < form.content.length;
 };
-
 
 const submitPost = (event) => {
     event.preventDefault();
@@ -28,7 +27,7 @@ const submitPost = (event) => {
         );
         return;
     }
-    form.type = selectedTab.value == 'tab2'? 'story': 'post';
+    form.type = selectedTab.value == 'tab2' ? 'story' : 'post';
     form.post(route('post.store'), {
         onFinish() {
             form.content = '';
@@ -46,8 +45,6 @@ const user = {
     profilePicture: 'https://example.com/profile-picture.jpg',
 };
 
-
-
 const isMaximized = ref(false);
 </script>
 
@@ -57,46 +54,46 @@ const isMaximized = ref(false);
         :class="isMaximized ? 'fixed top-0 left-0 w-full h-full' : ''"
     >
         <!-- Header with maximize/minimize button -->
-        <div class="bg-gray-900 rounded-lg shadow-md overflow-hidden p-1">
+        <div class="bg-gray-900 rounded-lg shadow-md overflow-hidden">
             <div
-                class="flex flex-row justify-end bg-slate-800 m-1 p-2 rounded-lg mb-3"
+                class="flex flex-row justify-between bg-slate-800 m-1 rounded-lg mb-3"
             >
-                <button @click="isMaximized = !isMaximized">
+                <div class="flex flex-row justify-start">
+                    <input
+                        type="radio"
+                        id="tab1"
+                        name="tabs"
+                        v-model="selectedTab"
+                        value="tab1"
+                        class="hidden"
+                    />
+                    <label
+                        for="tab1"
+                        class="border border-gray-600 py-2 px-4 bg-gray-800 cursor-pointer text-gray-300 hover:bg-gray-700"
+                        :class="selectedTab == 'tab1' ? 'bg-gray-600' : ''"
+                    >
+                        Post
+                    </label>
+
+                    <input
+                        type="radio"
+                        id="tab2"
+                        name="tabs"
+                        v-model="selectedTab"
+                        value="tab2"
+                        class="hidden"
+                    />
+                    <label
+                        for="tab2"
+                        class="border border-gray-600 py-2 px-4 bg-gray-800 cursor-pointer text-gray-300 hover:bg-gray-700"
+                        :class="selectedTab == 'tab2' ? 'bg-gray-600' : ''"
+                    >
+                        Story
+                    </label>
+                </div>
+                <button class="p-1 px-2 text-slate-400" @click="isMaximized = !isMaximized">
                     {{ isMaximized ? 'x' : '⧉' }}
                 </button>
-            </div>
-
-            <!-- Tabs for switching between Post and Story -->
-            <div class="flex p-2">
-                <input
-                    type="radio"
-                    id="tab1"
-                    name="tabs"
-                    v-model="selectedTab"
-                    value="tab1"
-                    class="hidden"
-                />
-                <label
-                    for="tab1"
-                    class="border border-gray-600 py-2 px-4 bg-gray-800 cursor-pointer text-gray-300 hover:bg-gray-700"
-                >
-                    Post
-                </label>
-
-                <input
-                    type="radio"
-                    id="tab2"
-                    name="tabs"
-                    v-model="selectedTab"
-                    value="tab2"
-                    class="hidden"
-                />
-                <label
-                    for="tab2"
-                    class="border border-gray-600 py-2 px-4 bg-gray-800 cursor-pointer text-gray-300 hover:bg-gray-700"
-                >
-                    Story
-                </label>
             </div>
 
             <!-- Tab content -->
@@ -121,15 +118,20 @@ const isMaximized = ref(false);
                         />
                     </div>
 
-                    <div class="flex flex-row justify-start p-1 border border-grey rounded-lg">
+                    <div
+                        class="flex flex-row justify-start p-1 border border-grey rounded-lg"
+                    >
                         <div
-                        :style="`background-color: ${form.background_color}; color:${form.text_color}`"
+                            :style="`background-color: ${form.background_color}; color:${form.text_color}`"
                             :class="`relative w-full p-4  rounded-lg shadow-md h-48`"
                         >
                             <div class="whitespace-pre-wrap p-5">
                                 {{ form.content }}
                             </div>
-                            <span class="absolute top-0 left-0 p-2 text-white bg-slate-700 opacity-75 w-full z-10">Story Preview</span>
+                            <span
+                                class="absolute top-0 left-0 p-2 text-white bg-slate-700 opacity-75 w-full z-10"
+                                >Story Preview</span
+                            >
                         </div>
                     </div>
                 </div>

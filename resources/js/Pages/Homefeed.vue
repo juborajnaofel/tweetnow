@@ -9,6 +9,7 @@ import axios from 'axios';
 
 const posts = ref([]);
 const users = ref([]);
+const stories = ref([]);
 
 onMounted(async () => {
     try {
@@ -16,12 +17,29 @@ onMounted(async () => {
             route('post.fetch', {
                 _query: {
                     limit: 100,
-                    step: 1,
+                    step: 0,
                 },
             })
         );
 
         posts.value = response.data;
+    } catch (error) {
+        console.error(error);
+    }
+
+
+    try {
+        const response = await axios.get(
+            route('post.fetch', {
+                _query: {
+                    limit: 20,
+                    step: 0,
+                    type: 'story'
+                },
+            })
+        );
+
+        stories.value = response.data;
     } catch (error) {
         console.error(error);
     }
@@ -44,118 +62,6 @@ onMounted(async () => {
     }
 });
 
-const reels = [
-    {
-        content: 'https://example.com/reel-video1.mp4',
-        type: 'video',
-        timestamp: '2024-07-16T12:00:00Z',
-    },
-    {
-        content: 'https://example.com/reel-video2.mp4',
-        type: 'video',
-        timestamp: '2024-07-16T13:30:00Z',
-    },
-    {
-        content: 'https://example.com/reel-image1.jpg',
-        type: 'image',
-        timestamp: '2024-07-16T15:00:00Z',
-    },
-    {
-        content: 'https://example.com/reel-video3.mp4',
-        type: 'video',
-        timestamp: '2024-07-16T16:45:00Z',
-    },
-    {
-        content: 'https://example.com/reel-image2.jpg',
-        type: 'image',
-        timestamp: '2024-07-16T18:15:00Z',
-    },
-    {
-        content: 'https://example.com/reel-video4.mp4',
-        type: 'video',
-        timestamp: '2024-07-16T20:00:00Z',
-    },
-    {
-        content: 'https://example.com/reel-image3.jpg',
-        type: 'image',
-        timestamp: '2024-07-17T09:30:00Z',
-    },
-    {
-        content: 'https://example.com/reel-video5.mp4',
-        type: 'video',
-        timestamp: '2024-07-17T12:00:00Z',
-    },
-    {
-        content: 'https://example.com/reel-image4.jpg',
-        type: 'image',
-        timestamp: '2024-07-17T14:20:00Z',
-    },
-    {
-        content: 'https://example.com/reel-video6.mp4',
-        type: 'video',
-        timestamp: '2024-07-17T16:15:00Z',
-    },
-    {
-        content: 'https://example.com/reel-image5.jpg',
-        type: 'image',
-        timestamp: '2024-07-17T18:45:00Z',
-    },
-    {
-        content: 'https://example.com/reel-video7.mp4',
-        type: 'video',
-        timestamp: '2024-07-18T10:00:00Z',
-    },
-    {
-        content: 'https://example.com/reel-image6.jpg',
-        type: 'image',
-        timestamp: '2024-07-18T12:30:00Z',
-    },
-    {
-        content: 'https://example.com/reel-video8.mp4',
-        type: 'video',
-        timestamp: '2024-07-18T15:00:00Z',
-    },
-    {
-        content: 'https://example.com/reel-image7.jpg',
-        type: 'image',
-        timestamp: '2024-07-18T17:45:00Z',
-    },
-    {
-        content: 'https://example.com/reel-video9.mp4',
-        type: 'video',
-        timestamp: '2024-07-18T20:00:00Z',
-    },
-    {
-        content: 'https://example.com/reel-image8.jpg',
-        type: 'image',
-        timestamp: '2024-07-19T09:30:00Z',
-    },
-    {
-        content: 'https://example.com/reel-video10.mp4',
-        type: 'video',
-        timestamp: '2024-07-19T12:00:00Z',
-    },
-    {
-        content: 'https://example.com/reel-image9.jpg',
-        type: 'image',
-        timestamp: '2024-07-19T14:20:00Z',
-    },
-    {
-        content: 'https://example.com/reel-video11.mp4',
-        type: 'video',
-        timestamp: '2024-07-19T16:15:00Z',
-    },
-    {
-        content: 'https://example.com/reel-image10.jpg',
-        type: 'image',
-        timestamp: '2024-07-19T18:45:00Z',
-    },
-];
-
-const user = {
-    username: 'john_doe',
-    profilePicture: 'https://example.com/profile-picture.jpg',
-};
 </script>
 
 <template>
@@ -167,8 +73,14 @@ const user = {
                 <div
                     class="flex flex-row justify-start gap-2 overflow-x-hidden"
                 >
-                    <div v-for="reel in reels" :key="reel">
-                        <StoryCard :reel="reel" :user="user" />
+                    <div v-for="story in stories" :key="story">
+                        <StoryCard
+                                :user="story.user"
+                                :post="story"
+                                :config="{
+                                    size: 'sm',
+                                }"
+                            />
                     </div>
                 </div>
                 <div class="absolute top-[100px] right-[-10px] sp-2 rounded-full bg-slate-800 h-10 w-10 flex flex-row justify-center items-center p-3">

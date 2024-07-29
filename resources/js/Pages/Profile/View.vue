@@ -1,6 +1,7 @@
 <script setup>
 import PostBox from '@/Components/PostBox.vue';
 import PostCard from '@/Components/PostCard.vue';
+import StoryCard from '@/Components/StoryCard.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
@@ -19,7 +20,7 @@ onMounted(async () => {
             route('post.fetch', {
                 _query: {
                     limit: 20,
-                    step: 1,
+                    step: 0,
                     id: props.user.id,
                 },
             })
@@ -48,7 +49,9 @@ onMounted(async () => {
             <!-- Sidebar Section -->
             <div class="w-full lg:w-1/3 p-4 lg:p-6">
                 <div class="mb-6">
-                    <div class="font-bold text-md mb-2 text-gray-300">About</div>
+                    <div class="font-bold text-md mb-2 text-gray-300">
+                        About
+                    </div>
                     <SideCard class="bg-gray-800 text-gray-100">
                         <div class="flex flex-col gap-y-2 text-sm">
                             <div class="flex items-center justify-between">
@@ -63,7 +66,7 @@ onMounted(async () => {
                             <div class="flex flex-col gap-y-2">
                                 <span class="font-semibold">Bio</span>
                                 <span class="text-gray-400">
-                                {{user.bio}}
+                                    {{ user.bio }}
                                 </span>
                             </div>
                             <hr class="my-2 border-gray-700" />
@@ -74,7 +77,10 @@ onMounted(async () => {
                                     :key="item.type"
                                     class="text-gray-400"
                                 >
-                                    <a :href="item.link" class="bg-gray-700 border border-gray-600 rounded-md px-2 py-1 block hover:bg-gray-600">
+                                    <a
+                                        :href="item.link"
+                                        class="bg-gray-700 border border-gray-600 rounded-md px-2 py-1 block hover:bg-gray-600"
+                                    >
                                         {{ item.type + ': ' + item.url }}
                                     </a>
                                 </div>
@@ -87,16 +93,28 @@ onMounted(async () => {
             <!-- Posts Section -->
             <div class="w-full lg:w-2/3 p-4 lg:p-6 mt-10">
                 <PostBox />
-                <div class="space-y-6">
-                    <PostCard
-                        v-for="(post, index) in posts"
-                        :key="index"
-                        :data="post"
-                        class="bg-gray-800 rounded-lg p-4"
-                    />
+                <div class="space-y-6 mt-3">
+                    <div class="flex flex-row justify-between text-[24px] font-bold text-white">
+                        Posts
+                    </div>
+                    <template v-for="(post, index) in posts" :key="index">
+                        <PostCard
+                            v-if="post.type == 'post'"
+                            :data="post"
+                            class="bg-gray-800 rounded-lg"
+                        />
+                        <div v-else class="bg-gray-900 rounded-lg mx-10 flex flex-row justify-center">
+                            <StoryCard
+                                :user="user"
+                                :post="post"
+                                :config="{
+                                    size: 'lg',
+                                }"
+                            />
+                        </div>
+                    </template>
                 </div>
             </div>
         </div>
     </AuthenticatedLayout>
 </template>
-
