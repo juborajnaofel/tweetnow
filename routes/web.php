@@ -39,6 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/view/{id}', [ProfileController::class, 'show'])->name('profile.view');
+    Route::post('/social-links/update', [ProfileController::class, 'updateSocialLinks'])->name('social-links.update');
 
     Route::name('home.')->prefix('/home')->group(function () {
         Route::get('/', [HomeController::class, 'homefeed'])->name('feed');

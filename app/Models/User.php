@@ -22,7 +22,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'social_links',
+        'bio'
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,6 +45,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'social_links' => 'json'
     ];
 
 
@@ -50,6 +54,7 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'user_follows_user', 'follower_id', 'followed_id');
     }
     
+
     public function follows(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_follows_user', 'followed_id', 'follower_id');

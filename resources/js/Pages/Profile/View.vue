@@ -1,17 +1,14 @@
 <script setup>
-import PostBox from "@/Components/PostBox.vue";
-import PostCard from "@/Components/PostCard.vue";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
-import { ref, onMounted } from "vue";
-import axios from "axios";
-import SideCard from "@/Components/SideCard.vue";
-
+import PostBox from '@/Components/PostBox.vue';
+import PostCard from '@/Components/PostCard.vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Head } from '@inertiajs/vue3';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+import SideCard from '@/Components/SideCard.vue';
 const props = defineProps({
-    user: Object
+    user: Object,
 });
-
-
 
 const posts = ref([]);
 const users = ref([]);
@@ -19,11 +16,11 @@ const users = ref([]);
 onMounted(async () => {
     try {
         const response = await axios.get(
-            route("post.fetch", {
+            route('post.fetch', {
                 _query: {
                     limit: 20,
                     step: 1,
-                    id: props.user.id
+                    id: props.user.id,
                 },
             })
         );
@@ -33,86 +30,73 @@ onMounted(async () => {
         console.error(error);
     }
 });
-
 </script>
 
 <template>
     <Head title="Feed" />
-
     <AuthenticatedLayout>
         <template #header>
             <div
-                class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight flex flex-row justify-between"
+                class="font-semibold text-xl text-gray-100 leading-tight flex flex-row justify-between bg-gray-900 p-4"
             >
-                <span class="">{{ user.name }}</span>
+                <span>{{ user.name }}</span>
             </div>
         </template>
-
         <div
-            class="py-12 flex flex-row justify-center px-5 md:px-0 overflow-y-auto"
+            class="flex flex-col lg:flex-row justify-center max-w-7xl mx-auto py-6"
         >
-            <!-- <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">You're logged in!</div>
-                </div>
-            </div> -->
-            <div class="flex flex-col lg:flex-row w-full px-5 justify-center">
-                <div class="w-full lg:w-1/6">
-                    <div class="mb-3">
-                        <div class="mx-2 font-bold text-md mb-1">
-                            About
+            <!-- Sidebar Section -->
+            <div class="w-full lg:w-1/3 p-4 lg:p-6">
+                <div class="mb-6">
+                    <div class="font-bold text-md mb-2 text-gray-300">About</div>
+                    <SideCard class="bg-gray-800 text-gray-100">
+                        <div class="flex flex-col gap-y-2 text-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Followers:</span>
+                                <span>{{ user.followers_count }}</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Following:</span>
+                                <span>{{ user.following_count }}</span>
+                            </div>
+                            <hr class="my-2 border-gray-700" />
+                            <div class="flex flex-col gap-y-2">
+                                <span class="font-semibold">Bio</span>
+                                <span class="text-gray-400">
+                                {{user.bio}}
+                                </span>
+                            </div>
+                            <hr class="my-2 border-gray-700" />
+                            <div class="flex flex-col gap-y-2">
+                                <span class="font-semibold">Links</span>
+                                <div
+                                    v-for="item in user.social_links"
+                                    :key="item.type"
+                                    class="text-gray-400"
+                                >
+                                    <a :href="item.link" class="bg-gray-700 border border-gray-600 rounded-md px-2 py-1 block hover:bg-gray-600">
+                                        {{ item.type + ': ' + item.url }}
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <SideCard >
-                            <div class="flex flex-row flex-start gap-x-6 font-bold text-sm justify-center">
-                                <span>
-                                Followers: {{ user.followers_count}}  
-                                </span>
-                                <span>
-                                    Following: {{ user.following_count}} 
-                                </span> 
-                            </div>
-                            <hr>
-                            <div class="flex flex-col flex-start gap-x-6 font-bold text-sm justify-center">
-                                <span>
-                                Bio 
-                                </span>
-                                <span class="font-thin">
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias, dolorem doloremque error voluptate quod velit dolores, a, cupiditate tenetur quae incidunt delectus eligendi saepe libero dignissimos corporis veritatis iste nihil!
-                                </span> 
-                            </div>
-                            <hr>
-                            <div class="flex flex-col flex-start gap-x-6 font-bold text-sm justify-center">
-                                <span>
-                                Links
-                                </span>
-                                
-                                    <span 
-                                        class="font-thin bg-slate-100 border-1 border-slate-300"
-                                        v-for="item in [
-                                            {link:'/',user_name: 'tiger_l123', type:'fb'},
-                                            {link:'/',user_name: 'tiger_l123', type:'in'},
-                                            {link:'/',user_name: 'tiger_l123', type:'github'},
-                                        ]"
-                                    >
-                                        <a :href="link">
-                                            {{ item.type+"//: "+item.user_name }}
-                                        </a>                                        
-                                    </span>
-
-                            </div>        
-                        </SideCard>
-                    </div>
+                    </SideCard>
                 </div>
-                <div class="w-full lg:w-3/6">
-                    <PostBox />
-                    <br />
+            </div>
+
+            <!-- Posts Section -->
+            <div class="w-full lg:w-2/3 p-4 lg:p-6 mt-10">
+                <PostBox />
+                <div class="space-y-6">
                     <PostCard
                         v-for="(post, index) in posts"
                         :key="index"
                         :data="post"
+                        class="bg-gray-800 rounded-lg p-4"
                     />
                 </div>
             </div>
         </div>
     </AuthenticatedLayout>
 </template>
+
